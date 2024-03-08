@@ -4,6 +4,7 @@
  */
 import java.lang.StringBuilder;
 import java.util.Random;
+import javax.swing.JOptionPane;
 /**
  *
  * @author mateu
@@ -52,6 +53,7 @@ public class geradorDeSenha extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Made by Me");
+        setLocationByPlatform(true);
         setResizable(false);
 
         labelQuantidadeCaracteres.setText("Quantidade de caracteres: ");
@@ -118,7 +120,8 @@ public class geradorDeSenha extends javax.swing.JFrame {
             textPaneLocalSenhaGerada.setText(senhaFormatada);
             senha.delete(0, senha.length());
         } catch (java.lang.NumberFormatException e){
-            System.out.println("Você não pode colocar letra neste campo!");
+            JOptionPane.showMessageDialog(null, "O campo não pode estar vazio ou conter letras!", "ERROR", JOptionPane.ERROR_MESSAGE);
+//            System.out.println("Você não pode colocar letra neste campo!");
         } catch(Exception e){
             System.err.println(e);
         }
