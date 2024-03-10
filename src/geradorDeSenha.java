@@ -5,6 +5,12 @@
 import java.lang.StringBuilder;
 import java.util.Random;
 import javax.swing.JOptionPane;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.datatransfer.*;
+//import java.awt.Toolkit;
 /**
  *
  * @author mateu
@@ -15,6 +21,8 @@ public class geradorDeSenha extends javax.swing.JFrame {
     private static String senhaFormatada;
     private static int quantidadeCaracteresSenha;
     private static final String caracteres = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private Clipboard clipboard;
+    
     /**
      * Creates new form geradorDeSenha
      */
@@ -37,11 +45,13 @@ public class geradorDeSenha extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jProgressBar1 = new javax.swing.JProgressBar();
         labelQuantidadeCaracteres = new javax.swing.JLabel();
         textFieldQuantidadeCaracteres = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         textPaneLocalSenhaGerada = new javax.swing.JTextPane();
         botaoGerar = new javax.swing.JButton();
+        jButtonCopiarTexto = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -66,11 +76,17 @@ public class geradorDeSenha extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(textPaneLocalSenhaGerada);
 
-        botaoGerar.setForeground(new java.awt.Color(0, 0, 0));
         botaoGerar.setText("Gerar");
         botaoGerar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botaoGerarActionPerformed(evt);
+            }
+        });
+
+        jButtonCopiarTexto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/copy-two-paper-sheets-interface-symbol_54702.png"))); // NOI18N
+        jButtonCopiarTexto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCopiarTextoActionPerformed(evt);
             }
         });
 
@@ -80,15 +96,18 @@ public class geradorDeSenha extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(botaoGerar)
                             .addComponent(labelQuantidadeCaracteres))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldQuantidadeCaracteres, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addComponent(textFieldQuantidadeCaracteres, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonCopiarTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 41, Short.MAX_VALUE)))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,7 +119,9 @@ public class geradorDeSenha extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(botaoGerar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonCopiarTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
                 .addGap(19, 19, 19))
         );
 
@@ -126,6 +147,15 @@ public class geradorDeSenha extends javax.swing.JFrame {
             System.err.println(e);
         }
     }//GEN-LAST:event_botaoGerarActionPerformed
+
+    private void jButtonCopiarTextoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCopiarTextoActionPerformed
+        // TODO add your handling code here:
+        // copiando o texto para a area de trasnferencia
+        clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        String texto = senhaFormatada;
+        StringSelection stringSelection = new StringSelection(texto);
+        clipboard.setContents(stringSelection, null);
+    }//GEN-LAST:event_jButtonCopiarTextoActionPerformed
 
     private static String gerarSenha(Integer quantidadeCaracteresSenha){
         while (senha.length() < quantidadeCaracteresSenha){
@@ -175,8 +205,10 @@ public class geradorDeSenha extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonCopiarTexto;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JFileChooser jFileChooser2;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelQuantidadeCaracteres;
     private javax.swing.JTextField textFieldQuantidadeCaracteres;
