@@ -5,9 +5,6 @@
 import java.lang.StringBuilder;
 import java.util.Random;
 import javax.swing.JOptionPane;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.datatransfer.*;
 //import java.awt.Toolkit;
@@ -155,6 +152,7 @@ public class geradorDeSenha extends javax.swing.JFrame {
         String texto = senhaFormatada;
         StringSelection stringSelection = new StringSelection(texto);
         clipboard.setContents(stringSelection, null);
+        JOptionPane.showMessageDialog(null, "A senha foi copiada para a área de transferência");
     }//GEN-LAST:event_jButtonCopiarTextoActionPerformed
 
     private static String gerarSenha(Integer quantidadeCaracteresSenha){
